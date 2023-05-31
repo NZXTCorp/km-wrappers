@@ -1,0 +1,32 @@
+[build]
+target = "x86_64-pc-windows-msvc"
+
+rustflags = [
+  # also see https://github.com/rust-lang/backtrace-rs/issues/397#issuecomment-846422025
+  "-Cforce-unwind-tables=yes",
+
+  # SSE and AVX are not allowed without extra compiler support, or manual state saving:
+  # https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/using-floating-point-or-mmx-in-a-wdm-driver
+  # https://os.phil-opp.com/disable-simd/
+  "-Ctarget-feature=-avx,-avx2,-sse,-sse2,-sse3,-sse4.1,-sse4.2,-sse4a,-ssse3",
+
+  "-Clink-arg=/NODEFAULTLIB",
+  "-Clink-arg=/SUBSYSTEM:NATIVE",
+  "-Clink-arg=/DRIVER",
+  "-Clink-arg=/DYNAMICBASE",
+  "-Clink-arg=/MANIFEST:NO",
+  # treat linker warnings as errors
+  "-Clink-arg=/WX",
+
+  "-Clink-arg=/OPT:REF,ICF",
+  # use WDF stub entry, which calls our `DriverEntry`
+  "-Clink-arg=/ENTRY:FxDriverEntry",
+  "-Clink-arg=/MERGE:.edata=.rdata",
+  "-Clink-arg=/MERGE:.rustc=.data",
+  "-Clink-arg=/INTEGRITYCHECK",
+  # mark INIT section as discardable (what the C driver samples do)
+  # also see: https://devblogs.microsoft.com/oldnewthing/20120712-00/?p=7143
+  "-Clink-arg=/SECTION:INIT,d",
+]
+# "-Zpre-link-arg=/NXCOMPAT",
+# "-Zpre-link-arg=/PDBALTPATH:none",

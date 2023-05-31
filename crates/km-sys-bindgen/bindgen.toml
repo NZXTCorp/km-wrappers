@@ -1,0 +1,112 @@
+[enums]
+bitfield_enums = ["_WDF_DRIVER_INIT_FLAGS"]
+constified_enums = []
+newtype_enums = []
+rustified_enums = []
+
+[allowlists]
+allowed_functions = [
+    "DbgPrintEx",
+    "KeBugCheckEx",
+    "MmMapIoSpaceEx",
+    "MmUnmapIoSpace",
+    "SeSinglePrivilegeCheck",
+    "RtlConvertLongToLuid",
+]
+
+allowed_types = [
+    "DPFLTR_.*",
+    "NTSTATUS",
+    "PCUNICODE_STRING",
+    "PDRIVER_OBJECT",
+    "MODE",
+
+    # WDF types
+    "WDF_DRIVER_CONFIG",
+    "WDF_DRIVER_INIT_FLAGS",
+    "WDF_EXECUTION_LEVEL",
+    "WDF_OBJECT_ATTRIBUTES",
+    "WDF_SYNCHRONIZATION_SCOPE",
+    "WDFFUNCENUM",
+    "PFN_WDF_DEVICE_FILE_CREATE",
+    "PFN_WDF_FILE_CLOSE",
+    "PFN_WDF_FILE_CLEANUP",
+    "WDF_FILEOBJECT_CONFIG",
+    "WDF_FILEOBJECT_CLASS",
+    "WDF_TRI_STATE",
+    "WDF_IO_QUEUE_DISPATCH_TYPE",
+    "WDF_IO_QUEUE_CONFIG",
+    "WDF_OBJECT_CONTEXT_TYPE_INFO",
+
+    # WDF function pointers
+    "PFN_WDFCONTROLDEVICEINITALLOCATE",
+    "PFN_WDFDRIVERCREATE",
+    "PFN_WDFDEVICEINITSETEXCLUSIVE",
+    "PFN_WDFDEVICEINITSETIOTYPE",
+    "PFN_WDFDEVICEINITASSIGNNAME",
+    "PFN_WDFDEVICEINITFREE",
+    "PFN_WDFDEVICEINITSETFILEOBJECTCONFIG",
+    "PFN_WDFDEVICECREATE",
+    "PFN_WDFDEVICECREATESYMBOLICLINK",
+    "PFN_WDFIOQUEUECREATE",
+    "PFN_WDFCONTROLFINISHINITIALIZING",
+    "PFN_WDFREQUESTCOMPLETE",
+    "PFN_WDFREQUESTRETRIEVEINPUTBUFFER",
+    "PFN_WDFREQUESTRETRIEVEOUTPUTBUFFER",
+    "PFN_WDFREQUESTSETINFORMATION",
+    "PFN_WDFIOQUEUEGETDEVICE",
+    "PFN_WDFREQUESTGETREQUESTORMODE",
+    "PFN_WDFDEVICEINITSETFILEOBJECTCONFIG",
+
+    ## WDF object handling
+    "PFN_WDFOBJECTGETTYPEDCONTEXTWORKER",
+    "PFN_WDFOBJECTREFERENCEACTUAL",
+    "PFN_WDFOBJECTDEREFERENCEACTUAL",
+
+    # needed for object attributes
+    "POBJECT_ATTRIBUTES",
+    "SECURITY_DESCRIPTOR",
+]
+
+allowed_vars = [
+    "DPFLTR_.*",
+    "SDDL_DEVOBJ_SYS_ALL_ADM_RWX_WORLD_RW_RES_R",
+    "WdfDriverGlobals",
+    "WdfFunctions",
+
+    # IRQ levels
+    "PASSIVE_LEVEL",
+    "LOW_LEVEL",
+    "APC_LEVEL",
+    "DISPATCH_LEVEL",
+    "CMCI_LEVEL",
+    "CLOCK_LEVEL",
+    "IPI_LEVEL",
+    "DRS_LEVEL",
+    "POWER_LEVEL",
+    "PROFILE_LEVEL",
+    "HIGH_LEVEL",
+
+    # IOCTL Methods
+    "METHOD_.*",
+
+    # FILE_ consts
+    "FILE_.*",
+
+    # object attributes flags
+    "OBJ_OPENIF",
+    "OBJ_KERNEL_HANDLE",
+    "OBJ_FORCE_ACCESS_CHECK",
+
+    # paging; MmMapIoSpaceEx flags
+    "PAGE_READONLY",
+    "PAGE_READWRITE",
+    "PAGE_EXECUTE",
+    "PAGE_EXECUTE_READ",
+    "PAGE_EXECUTE_READWRITE",
+    "PAGE_NOCACHE",
+    "PAGE_WRITECOMBINE",
+
+    # SE_*: well-known privileges
+    "SE_LOAD_DRIVER_PRIVILEGE",
+]

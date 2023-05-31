@@ -1,0 +1,10 @@
+[package]
+edition = "2021"
+name = "km-sys-bindgen"
+version = "0.1.0"
+
+[dependencies]
+bindgen = "0.61.0"
+dotenvy = "0.15.7"
+serde = { version = "1.0.150", features = ["derive"] }
+toml = "0.5.9"

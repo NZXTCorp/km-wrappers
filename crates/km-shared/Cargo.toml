@@ -1,0 +1,14 @@
+[package]
+edition = "2021"
+name = "km-shared"
+rust-version = "1.57.0"
+version = "0.1.0"
+
+[dependencies]
+km-sys = { path = "../km-sys" }
+
+bitflags = "1.3.2"
+snafu = { version = "0.7.3", default_features = false, features = [
+    "rust_1_46",
+] }
+wchar = "0.11.0"
