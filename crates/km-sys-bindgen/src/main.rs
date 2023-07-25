@@ -57,7 +57,7 @@ fn main() {
     let mut builder = bindgen::Builder::default()
         .use_core()
         .ctypes_prefix("::libc")
-        .header("bindgen.h")
+        .header_contents("bindgen.h", include_str!("../bindgen.h"))
         .clang_args([
             format!("-I{shared_includes}"),
             format!("-I{km_includes}"),
@@ -68,7 +68,7 @@ fn main() {
             is_global: false,
         })
         .layout_tests(false)
-        .rustfmt_bindings(true);
+        .formatter(bindgen::Formatter::Prettyplease);
 
     for f in allowed_functions {
         builder = builder.allowlist_function(f);

@@ -5,7 +5,7 @@ version.workspace = true
 license.workspace = true
 
 [dependencies]
-bindgen = "0.61.0"
+bindgen = "0.66.1"
 dotenvy = "0.15.7"
 serde = { version = "1.0.150", features = ["derive"] }
-toml = "0.5.9"
+toml = "0.7.6"
