@@ -1,0 +1,8 @@
+[package]
+name = "km-sys-env"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+[dependencies]
+dotenvy = "0.15.7"
