@@ -34,9 +34,16 @@ impl IoCtlTransferType {
 bitflags::bitflags! {
     /// Represents the access rights the caller needs to be able to issue the I/O control code.
     pub struct IoCtlAccess: u8 {
-        const ANY_ACCESS = FILE_ANY_ACCESS as u8;
         const READ_DATA = FILE_READ_DATA as u8;
         const WRITE_DATA = FILE_WRITE_DATA as u8;
+    }
+}
+
+impl IoCtlAccess {
+    pub const fn any_access() -> Self {
+        const _: () = assert!(FILE_ANY_ACCESS == 0);
+
+        Self::empty()
     }
 }
 

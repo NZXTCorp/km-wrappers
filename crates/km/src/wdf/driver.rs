@@ -27,6 +27,8 @@ impl AsWdfReference for Driver {
 }
 
 impl Driver {
+    // we need the mutable ptr `driver_object` and `registry_path`
+    #[allow(clippy::needless_pass_by_ref_mut)]
     pub fn create(
         driver_object: &mut DriverObjectHandle,
         registry_path: &mut UnicodeStringHandle,
