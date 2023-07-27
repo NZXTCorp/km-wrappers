@@ -12,6 +12,3 @@ linking = []
 
 [dependencies]
 libc = { version = "0.2.138", default-features = false }
-
-[build-dependencies]
-dotenvy = "0.15.7"

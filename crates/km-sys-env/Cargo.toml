@@ -1,11 +1,8 @@
 [package]
-name = "km-sys-bindgen"
+name = "km-sys-env"
 edition.workspace = true
 version.workspace = true
 license.workspace = true
 
 [dependencies]
-bindgen = "0.66.1"
 dotenvy = "0.15.7"
-serde = { version = "1.0.150", features = ["derive"] }
-toml = "0.7.6"
