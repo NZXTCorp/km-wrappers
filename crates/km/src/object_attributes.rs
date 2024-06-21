@@ -52,7 +52,7 @@ impl<'a, 'b> ObjectAttributes<'a, 'b> {
 
     pub fn flags(&self) -> ObjectAttributesFlags {
         // SAFETY: Represented as true `ULONG` in the end, additional flags are ignored.
-        unsafe { ObjectAttributesFlags::from_bits_unchecked(self.0.Attributes) }
+        ObjectAttributesFlags::from_bits_retain(self.0.Attributes)
     }
 }
 

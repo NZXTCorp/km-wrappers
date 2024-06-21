@@ -247,6 +247,7 @@ impl PageProtection {
 }
 
 bitflags! {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
     /// Modifiers for how pages are mapped (see [`MappedIoSpace::create_mapping`]).
     pub struct PageProtectionModifiers: ULONG {
         /// Specifies non-cached memory.

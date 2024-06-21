@@ -78,7 +78,7 @@ macro_rules! declare_wdf_object_context_type {
                 $crate::wdf::context::WDF_OBJECT_CONTEXT_TYPE_INFO {
                     Size: ::core::mem::size_of::<$crate::wdf::context::WDF_OBJECT_CONTEXT_TYPE_INFO>()
                         as u32,
-                    ContextName: $crate::shared::cstrz!(::core::stringify!($t)).as_ptr() as *mut _,
+                    ContextName: concat!(::core::stringify!($t), "\0").as_ptr() as *mut _,
                     ContextSize: ::core::mem::size_of::<$t>(),
                     UniqueType: &$accessor_name as *const _ as *const _,
                     EvtDriverGetUniqueContextType: None,

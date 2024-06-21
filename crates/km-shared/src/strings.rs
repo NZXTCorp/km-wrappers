@@ -21,10 +21,3 @@ pub const fn make_const_unicode_string<const N: usize>(s: &'static [WCHAR; N]) -
         Length: (len_bytes - size_of::<WCHAR>()) as u16,
     }
 }
-
-#[macro_export]
-macro_rules! cstrz {
-    ($str:expr) => {
-        concat!($str, "\0")
-    };
-}
