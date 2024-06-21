@@ -1,5 +1,5 @@
 use core2::io::Write as _;
-use km_shared::{cstrz, ntstatus::NtStatus};
+use km_shared::ntstatus::NtStatus;
 use km_sys::{
     DbgPrintEx, DPFLTR_ERROR_LEVEL, DPFLTR_INFO_LEVEL, DPFLTR_TRACE_LEVEL, DPFLTR_TYPE,
     DPFLTR_WARNING_LEVEL, ULONG, _DPFLTR_TYPE,
@@ -70,7 +70,7 @@ impl core2::io::Write for DbgPrintWriter {
             DbgPrintEx(
                 self.component.0 as ULONG,
                 self.level,
-                cstrz!("%s").as_ptr().cast(),
+                c"%s".as_ptr().cast(),
                 max_dbgprint_buf.as_ptr(),
             )
         }
