@@ -7,6 +7,6 @@ license.workspace = true
 [dependencies]
 km-sys = { path = "../km-sys" }
 
-bitflags = "2.4.2"
-snafu = { version = "0.8.1" }
+bitflags = "2.5.0"
+snafu = { version = "0.8.3", default-features = false }
 wchar = "0.11.0"

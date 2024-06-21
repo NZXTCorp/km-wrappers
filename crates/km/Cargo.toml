@@ -5,14 +5,14 @@ version.workspace = true
 license.workspace = true
 
 [dependencies]
-bitflags = "2.4.2"
-bytemuck = "1.14.3"
-core2 = { version = "0.3.3", default-features = false, features = [] }
+bitflags = "2.5.0"
+bytemuck = "1.16.1"
+core2 = { version = "0.4.0", default-features = false, features = [] }
 km-shared = { path = "../km-shared" }
 km-sys = { path = "../km-sys", features = ["linking"] }
-libc = { version = "0.2.138", default-features = false }
-log = "0.4.17"
-snafu = { version = "0.8.1" }
-x86_64 = { version = "0.14.10", default-features = false, features = [
+libc = { version = "0.2.155", default-features = false }
+log = "0.4.21"
+snafu = { version = "0.8.3", default-features = false }
+x86_64 = { version = "0.15.1", default-features = false, features = [
     "instructions",
 ] }
