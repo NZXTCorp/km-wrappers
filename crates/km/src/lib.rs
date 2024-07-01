@@ -15,6 +15,7 @@ pub mod object_attributes;
 pub mod panic;
 pub mod port;
 pub mod privileges;
+pub mod time;
 pub mod wdf;
 
 pub use km_shared as shared;

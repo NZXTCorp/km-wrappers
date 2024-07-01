@@ -12,6 +12,7 @@ allowed_functions = [
     "MmUnmapIoSpace",
     "SeSinglePrivilegeCheck",
     "RtlConvertLongToLuid",
+    "KeDelayExecutionThread",
 ]
 
 allowed_types = [
