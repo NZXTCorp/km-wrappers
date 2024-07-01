@@ -1,4 +1,4 @@
-use core2::io::Write as _;
+use embedded_io::Write as _;
 use km_shared::ntstatus::NtStatus;
 use km_sys::{
     DbgPrintEx, DPFLTR_ERROR_LEVEL, DPFLTR_INFO_LEVEL, DPFLTR_TRACE_LEVEL, DPFLTR_TYPE,
@@ -26,11 +26,7 @@ impl Log for KernelLogger {
             },
         };
 
-        // Buffering this might be an idea, but it currently fails because of
-        // https://github.com/technocreatives/core2/issues/12. Also, since kernel stack space is
-        // limited, using a stack buffer might be dangerous as well. We're in kernel space, so
-        // repeated calls to the API shouldn't be overly expensive either.
-        let _ = dbgprint_writer.write_fmt(format_args!("{}\n", *record.args()));
+        let _ = writeln!(dbgprint_writer, "{}", *record.args());
     }
 
     fn flush(&self) {}
@@ -41,8 +37,12 @@ struct DbgPrintWriter {
     level: ULONG,
 }
 
-impl core2::io::Write for DbgPrintWriter {
-    fn write(&mut self, buf: &[u8]) -> core2::io::Result<usize> {
+impl embedded_io::ErrorType for DbgPrintWriter {
+    type Error = embedded_io::ErrorKind;
+}
+
+impl embedded_io::Write for DbgPrintWriter {
+    fn write(&mut self, buf: &[u8]) -> Result<usize, embedded_io::ErrorKind> {
         // DbgPrintEx/KdPrintEx only transmit 512 bytes at a time, so we only transfer
         // 511 bytes plus null terminator per call.
 
@@ -77,11 +77,11 @@ impl core2::io::Write for DbgPrintWriter {
         .into()
         {
             NtStatus::STATUS_SUCCESS => Ok(write_len),
-            _ => Err(core2::io::Error::new(core2::io::ErrorKind::Other, "")),
+            _ => Err(embedded_io::ErrorKind::Other),
         }
     }
 
-    fn flush(&mut self) -> core2::io::Result<()> {
+    fn flush(&mut self) -> Result<(), embedded_io::ErrorKind> {
         Ok(())
     }
 }

@@ -3537,6 +3537,13 @@ pub struct _KDEVICE_QUEUE_ENTRY {
 }
 pub type KDEVICE_QUEUE_ENTRY = _KDEVICE_QUEUE_ENTRY;
 extern "C" {
+    pub fn KeDelayExecutionThread(
+        WaitMode: KPROCESSOR_MODE,
+        Alertable: BOOLEAN,
+        Interval: PLARGE_INTEGER,
+    ) -> NTSTATUS;
+}
+extern "C" {
     pub fn KeBugCheckEx(
         BugCheckCode: ULONG,
         BugCheckParameter1: ULONG_PTR,
