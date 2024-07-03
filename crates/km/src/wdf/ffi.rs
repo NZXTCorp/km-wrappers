@@ -43,8 +43,7 @@ macro_rules! wdf_function {
             // we're accessing here.
             let fp: *const <$fp_ptr as Inner>::Inner = unsafe {
                 core::mem::transmute(
-                    ::km_sys::WdfFunctions
-                        .as_ptr()
+                    ::km_sys::WdfFunctions_01015
                         .offset($index.0 as isize),
                 )
             };
