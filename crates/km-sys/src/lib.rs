@@ -17,29 +17,29 @@ const _: () = {
 
     // BufferOverflowFastFailK needs Windows 8+
     // see https://docs.microsoft.com/en-us/windows-hardware/drivers/develop/building-drivers-for-different-versions-of-windows
-    // #[link(name = "BufferOverflowFastFailK")]
-    // extern "C" {}
+    #[link(name = "BufferOverflowFastFailK")]
+    extern "C" {}
 
     // older lib for Vista+
-    #[link(name = "BufferOverflowK")]
-    extern "C" {}
+    // #[link(name = "BufferOverflowK")]
+    // extern "C" {}
 
     #[link(name = "ntoskrnl")]
     extern "C" {}
 
-    // #[link(name = "hal")]
-    // extern "C" {}
-    // #[link(name = "wmilib")]
-    // extern "C" {}
-
-    #[link(name = "wdfldr")]
+    #[link(name = "hal")]
     extern "C" {}
-    #[link(name = "wdfdriverentry")]
+    #[link(name = "wmilib")]
+    extern "C" {}
+
+    #[link(name = "WdfLdr")]
+    extern "C" {}
+    #[link(name = "WdfDriverEntry")]
     extern "C" {}
 
     // #[link(name = "ntstrsafe")]
     // extern "C" {}
 
-    #[link(name = "wdmsec")]
-    extern "C" {}
+    // #[link(name = "wdmsec")]
+    // extern "C" {}
 };

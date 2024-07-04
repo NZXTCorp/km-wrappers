@@ -548,6 +548,7 @@ pub type LONG = ::libc::c_long;
 pub type WCHAR = wchar_t;
 pub type PWCH = *mut WCHAR;
 pub type PCHAR = *mut CHAR;
+pub type LPCSTR = *const CHAR;
 pub type PCSTR = *const CHAR;
 pub type UCHAR = ::libc::c_uchar;
 pub type USHORT = ::libc::c_ushort;
@@ -3456,6 +3457,9 @@ pub struct _KEVENT {
 }
 pub type KEVENT = _KEVENT;
 pub type PKEVENT = *mut _KEVENT;
+extern "C" {
+    pub fn KeGetCurrentIrql() -> KIRQL;
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct _KDEVICE_QUEUE {
@@ -5664,7 +5668,7 @@ extern "C" {
 }
 pub type WDFFUNC = ::core::option::Option<unsafe extern "C" fn()>;
 extern "C" {
-    pub static mut WdfFunctions: [WDFFUNC; 0usize];
+    pub static mut WdfFunctions_01015: *const WDFFUNC;
 }
 impl _WDF_TRI_STATE {
     pub const WdfFalse: _WDF_TRI_STATE = _WDF_TRI_STATE(0);
@@ -6053,10 +6057,10 @@ impl _WDFFUNCENUM {
     pub const WdfDeviceSetFailedTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(87);
 }
 impl _WDFFUNCENUM {
-    pub const WdfDeviceStopIdleTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(88);
+    pub const WdfDeviceStopIdleNoTrackTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(88);
 }
 impl _WDFFUNCENUM {
-    pub const WdfDeviceResumeIdleTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(89);
+    pub const WdfDeviceResumeIdleNoTrackTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(89);
 }
 impl _WDFFUNCENUM {
     pub const WdfDeviceGetFileObjectTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(90);
@@ -7327,7 +7331,49 @@ impl _WDFFUNCENUM {
     pub const WdfGetTriageInfoTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(431);
 }
 impl _WDFFUNCENUM {
-    pub const WdfFunctionTableNumEntries: _WDFFUNCENUM = _WDFFUNCENUM(432);
+    pub const WdfDeviceInitSetIoTypeExTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(432);
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceQueryPropertyExTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(433);
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceAllocAndQueryPropertyExTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(
+        434,
+    );
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceAssignPropertyTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(435);
+}
+impl _WDFFUNCENUM {
+    pub const WdfFdoInitQueryPropertyExTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(436);
+}
+impl _WDFFUNCENUM {
+    pub const WdfFdoInitAllocAndQueryPropertyExTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(
+        437,
+    );
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceStopIdleActualTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(438);
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceResumeIdleActualTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(439);
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceGetSelfIoTargetTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(440);
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceInitAllowSelfIoTargetTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(441);
+}
+impl _WDFFUNCENUM {
+    pub const WdfIoTargetSelfAssignDefaultIoQueueTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(
+        442,
+    );
+}
+impl _WDFFUNCENUM {
+    pub const WdfDeviceOpenDevicemapKeyTableIndex: _WDFFUNCENUM = _WDFFUNCENUM(443);
+}
+impl _WDFFUNCENUM {
+    pub const WdfFunctionTableNumEntries: _WDFFUNCENUM = _WDFFUNCENUM(444);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -7409,7 +7455,7 @@ pub type PFN_GET_UNIQUE_CONTEXT_TYPE = ::core::option::Option<
 #[derive(Debug, Copy, Clone)]
 pub struct _WDF_OBJECT_CONTEXT_TYPE_INFO {
     pub Size: ULONG,
-    pub ContextName: PCHAR,
+    pub ContextName: LPCSTR,
     pub ContextSize: usize,
     pub UniqueType: PCWDF_OBJECT_CONTEXT_TYPE_INFO,
     pub EvtDriverGetUniqueContextType: PFN_GET_UNIQUE_CONTEXT_TYPE,
@@ -7527,6 +7573,12 @@ impl _WDF_DEVICE_IO_TYPE {
 impl _WDF_DEVICE_IO_TYPE {
     pub const WdfDeviceIoDirect: _WDF_DEVICE_IO_TYPE = _WDF_DEVICE_IO_TYPE(3);
 }
+impl _WDF_DEVICE_IO_TYPE {
+    pub const WdfDeviceIoBufferedOrDirect: _WDF_DEVICE_IO_TYPE = _WDF_DEVICE_IO_TYPE(4);
+}
+impl _WDF_DEVICE_IO_TYPE {
+    pub const WdfDeviceIoMaximum: _WDF_DEVICE_IO_TYPE = _WDF_DEVICE_IO_TYPE(5);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct _WDF_DEVICE_IO_TYPE(pub ::libc::c_int);
@@ -7595,18 +7647,18 @@ pub type PWDF_FILEOBJECT_CONFIG = *mut _WDF_FILEOBJECT_CONFIG;
 pub type PFN_WDFDEVICEINITFREE = ::core::option::Option<
     unsafe extern "C" fn(DriverGlobals: PWDF_DRIVER_GLOBALS, DeviceInit: PWDFDEVICE_INIT),
 >;
-pub type PFN_WDFDEVICEINITSETIOTYPE = ::core::option::Option<
-    unsafe extern "C" fn(
-        DriverGlobals: PWDF_DRIVER_GLOBALS,
-        DeviceInit: PWDFDEVICE_INIT,
-        IoType: WDF_DEVICE_IO_TYPE,
-    ),
->;
 pub type PFN_WDFDEVICEINITSETEXCLUSIVE = ::core::option::Option<
     unsafe extern "C" fn(
         DriverGlobals: PWDF_DRIVER_GLOBALS,
         DeviceInit: PWDFDEVICE_INIT,
         IsExclusive: BOOLEAN,
+    ),
+>;
+pub type PFN_WDFDEVICEINITSETIOTYPE = ::core::option::Option<
+    unsafe extern "C" fn(
+        DriverGlobals: PWDF_DRIVER_GLOBALS,
+        DeviceInit: PWDFDEVICE_INIT,
+        IoType: WDF_DEVICE_IO_TYPE,
     ),
 >;
 pub type PFN_WDFDEVICEINITASSIGNNAME = ::core::option::Option<
