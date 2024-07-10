@@ -19,6 +19,7 @@ pub mod time;
 pub mod wdf;
 
 pub use km_shared as shared;
+pub use km_sys;
 pub use km_sys::PHYSICAL_ADDRESS as PhysicalAddress;
 pub use shared::utils::{AsRawMutPtr, AsRawPtr};
 
