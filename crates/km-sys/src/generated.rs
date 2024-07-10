@@ -5616,11 +5616,67 @@ pub struct _IO_STACK_LOCATION__bindgen_ty_1__bindgen_ty_39 {
     pub Argument3: PVOID,
     pub Argument4: PVOID,
 }
+impl _BUS_DATA_TYPE {
+    pub const ConfigurationSpaceUndefined: _BUS_DATA_TYPE = _BUS_DATA_TYPE(-1);
+}
+impl _BUS_DATA_TYPE {
+    pub const Cmos: _BUS_DATA_TYPE = _BUS_DATA_TYPE(0);
+}
+impl _BUS_DATA_TYPE {
+    pub const EisaConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(1);
+}
+impl _BUS_DATA_TYPE {
+    pub const Pos: _BUS_DATA_TYPE = _BUS_DATA_TYPE(2);
+}
+impl _BUS_DATA_TYPE {
+    pub const CbusConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(3);
+}
+impl _BUS_DATA_TYPE {
+    pub const PCIConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(4);
+}
+impl _BUS_DATA_TYPE {
+    pub const VMEConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(5);
+}
+impl _BUS_DATA_TYPE {
+    pub const NuBusConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(6);
+}
+impl _BUS_DATA_TYPE {
+    pub const PCMCIAConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(7);
+}
+impl _BUS_DATA_TYPE {
+    pub const MPIConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(8);
+}
+impl _BUS_DATA_TYPE {
+    pub const MPSAConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(9);
+}
+impl _BUS_DATA_TYPE {
+    pub const PNPISAConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(10);
+}
+impl _BUS_DATA_TYPE {
+    pub const SgiInternalConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(11);
+}
+impl _BUS_DATA_TYPE {
+    pub const MaximumBusDataType: _BUS_DATA_TYPE = _BUS_DATA_TYPE(12);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct _BUS_DATA_TYPE(pub ::libc::c_int);
+pub use self::_BUS_DATA_TYPE as BUS_DATA_TYPE;
 extern "C" {
     pub fn SeSinglePrivilegeCheck(
         PrivilegeValue: LUID,
         PreviousMode: KPROCESSOR_MODE,
     ) -> BOOLEAN;
+}
+extern "C" {
+    pub fn HalGetBusDataByOffset(
+        BusDataType: BUS_DATA_TYPE,
+        BusNumber: ULONG,
+        SlotNumber: ULONG,
+        Buffer: PVOID,
+        Offset: ULONG,
+        Length: ULONG,
+    ) -> ULONG;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
