@@ -5616,6 +5616,99 @@ pub struct _IO_STACK_LOCATION__bindgen_ty_1__bindgen_ty_39 {
     pub Argument3: PVOID,
     pub Argument4: PVOID,
 }
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct _PCI_SLOT_NUMBER {
+    pub u: _PCI_SLOT_NUMBER__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union _PCI_SLOT_NUMBER__bindgen_ty_1 {
+    pub bits: _PCI_SLOT_NUMBER__bindgen_ty_1__bindgen_ty_1,
+    pub AsULONG: ULONG,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _PCI_SLOT_NUMBER__bindgen_ty_1__bindgen_ty_1 {
+    pub _bitfield_align_1: [u32; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
+}
+impl _PCI_SLOT_NUMBER__bindgen_ty_1__bindgen_ty_1 {
+    #[inline]
+    pub fn DeviceNumber(&self) -> ULONG {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 5u8) as u32) }
+    }
+    #[inline]
+    pub fn set_DeviceNumber(&mut self, val: ULONG) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(0usize, 5u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn FunctionNumber(&self) -> ULONG {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(5usize, 3u8) as u32) }
+    }
+    #[inline]
+    pub fn set_FunctionNumber(&mut self, val: ULONG) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(5usize, 3u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn Reserved(&self) -> ULONG {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(8usize, 24u8) as u32) }
+    }
+    #[inline]
+    pub fn set_Reserved(&mut self, val: ULONG) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(8usize, 24u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        DeviceNumber: ULONG,
+        FunctionNumber: ULONG,
+        Reserved: ULONG,
+    ) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+        __bindgen_bitfield_unit
+            .set(
+                0usize,
+                5u8,
+                {
+                    let DeviceNumber: u32 = unsafe {
+                        ::core::mem::transmute(DeviceNumber)
+                    };
+                    DeviceNumber as u64
+                },
+            );
+        __bindgen_bitfield_unit
+            .set(
+                5usize,
+                3u8,
+                {
+                    let FunctionNumber: u32 = unsafe {
+                        ::core::mem::transmute(FunctionNumber)
+                    };
+                    FunctionNumber as u64
+                },
+            );
+        __bindgen_bitfield_unit
+            .set(
+                8usize,
+                24u8,
+                {
+                    let Reserved: u32 = unsafe { ::core::mem::transmute(Reserved) };
+                    Reserved as u64
+                },
+            );
+        __bindgen_bitfield_unit
+    }
+}
+pub type PCI_SLOT_NUMBER = _PCI_SLOT_NUMBER;
 impl _BUS_DATA_TYPE {
     pub const ConfigurationSpaceUndefined: _BUS_DATA_TYPE = _BUS_DATA_TYPE(-1);
 }

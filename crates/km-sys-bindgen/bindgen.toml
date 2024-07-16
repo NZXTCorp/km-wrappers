@@ -23,6 +23,7 @@ allowed_types = [
     "PCUNICODE_STRING",
     "PDRIVER_OBJECT",
     "MODE",
+    "PCI_SLOT_NUMBER",
 
     # WDF types
     "WDF_DRIVER_CONFIG",
