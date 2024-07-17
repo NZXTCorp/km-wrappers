@@ -5616,11 +5616,160 @@ pub struct _IO_STACK_LOCATION__bindgen_ty_1__bindgen_ty_39 {
     pub Argument3: PVOID,
     pub Argument4: PVOID,
 }
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct _PCI_SLOT_NUMBER {
+    pub u: _PCI_SLOT_NUMBER__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union _PCI_SLOT_NUMBER__bindgen_ty_1 {
+    pub bits: _PCI_SLOT_NUMBER__bindgen_ty_1__bindgen_ty_1,
+    pub AsULONG: ULONG,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _PCI_SLOT_NUMBER__bindgen_ty_1__bindgen_ty_1 {
+    pub _bitfield_align_1: [u32; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
+}
+impl _PCI_SLOT_NUMBER__bindgen_ty_1__bindgen_ty_1 {
+    #[inline]
+    pub fn DeviceNumber(&self) -> ULONG {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(0usize, 5u8) as u32) }
+    }
+    #[inline]
+    pub fn set_DeviceNumber(&mut self, val: ULONG) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(0usize, 5u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn FunctionNumber(&self) -> ULONG {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(5usize, 3u8) as u32) }
+    }
+    #[inline]
+    pub fn set_FunctionNumber(&mut self, val: ULONG) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(5usize, 3u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn Reserved(&self) -> ULONG {
+        unsafe { ::core::mem::transmute(self._bitfield_1.get(8usize, 24u8) as u32) }
+    }
+    #[inline]
+    pub fn set_Reserved(&mut self, val: ULONG) {
+        unsafe {
+            let val: u32 = ::core::mem::transmute(val);
+            self._bitfield_1.set(8usize, 24u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        DeviceNumber: ULONG,
+        FunctionNumber: ULONG,
+        Reserved: ULONG,
+    ) -> __BindgenBitfieldUnit<[u8; 4usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> = Default::default();
+        __bindgen_bitfield_unit
+            .set(
+                0usize,
+                5u8,
+                {
+                    let DeviceNumber: u32 = unsafe {
+                        ::core::mem::transmute(DeviceNumber)
+                    };
+                    DeviceNumber as u64
+                },
+            );
+        __bindgen_bitfield_unit
+            .set(
+                5usize,
+                3u8,
+                {
+                    let FunctionNumber: u32 = unsafe {
+                        ::core::mem::transmute(FunctionNumber)
+                    };
+                    FunctionNumber as u64
+                },
+            );
+        __bindgen_bitfield_unit
+            .set(
+                8usize,
+                24u8,
+                {
+                    let Reserved: u32 = unsafe { ::core::mem::transmute(Reserved) };
+                    Reserved as u64
+                },
+            );
+        __bindgen_bitfield_unit
+    }
+}
+pub type PCI_SLOT_NUMBER = _PCI_SLOT_NUMBER;
+impl _BUS_DATA_TYPE {
+    pub const ConfigurationSpaceUndefined: _BUS_DATA_TYPE = _BUS_DATA_TYPE(-1);
+}
+impl _BUS_DATA_TYPE {
+    pub const Cmos: _BUS_DATA_TYPE = _BUS_DATA_TYPE(0);
+}
+impl _BUS_DATA_TYPE {
+    pub const EisaConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(1);
+}
+impl _BUS_DATA_TYPE {
+    pub const Pos: _BUS_DATA_TYPE = _BUS_DATA_TYPE(2);
+}
+impl _BUS_DATA_TYPE {
+    pub const CbusConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(3);
+}
+impl _BUS_DATA_TYPE {
+    pub const PCIConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(4);
+}
+impl _BUS_DATA_TYPE {
+    pub const VMEConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(5);
+}
+impl _BUS_DATA_TYPE {
+    pub const NuBusConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(6);
+}
+impl _BUS_DATA_TYPE {
+    pub const PCMCIAConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(7);
+}
+impl _BUS_DATA_TYPE {
+    pub const MPIConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(8);
+}
+impl _BUS_DATA_TYPE {
+    pub const MPSAConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(9);
+}
+impl _BUS_DATA_TYPE {
+    pub const PNPISAConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(10);
+}
+impl _BUS_DATA_TYPE {
+    pub const SgiInternalConfiguration: _BUS_DATA_TYPE = _BUS_DATA_TYPE(11);
+}
+impl _BUS_DATA_TYPE {
+    pub const MaximumBusDataType: _BUS_DATA_TYPE = _BUS_DATA_TYPE(12);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct _BUS_DATA_TYPE(pub ::libc::c_int);
+pub use self::_BUS_DATA_TYPE as BUS_DATA_TYPE;
 extern "C" {
     pub fn SeSinglePrivilegeCheck(
         PrivilegeValue: LUID,
         PreviousMode: KPROCESSOR_MODE,
     ) -> BOOLEAN;
+}
+extern "C" {
+    pub fn HalGetBusDataByOffset(
+        BusDataType: BUS_DATA_TYPE,
+        BusNumber: ULONG,
+        SlotNumber: ULONG,
+        Buffer: PVOID,
+        Offset: ULONG,
+        Length: ULONG,
+    ) -> ULONG;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
