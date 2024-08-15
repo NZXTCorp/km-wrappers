@@ -3723,6 +3723,9 @@ extern "C" {
         Protect: ULONG,
     ) -> PVOID;
 }
+extern "C" {
+    pub fn MmPageEntireDriver(AddressWithinSection: PVOID) -> PVOID;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _SECURITY_SUBJECT_CONTEXT {
